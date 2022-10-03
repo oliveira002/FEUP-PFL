@@ -60,6 +60,24 @@ myisort :: Ord a => [a] -> [a]
 myisort [] = []
 myisort (x:xs) = myins x (myisort xs)
 
+
+--2.5a
+minimumA :: Ord a => [a] -> a
+minimumA [x] = x
+minimumA (x:xs) =
+        if (x < minimumA xs) then x
+        else minimumA xs
+
+--2.5b
+delete :: Eq a => a -> [a] -> [a]
+delete _ [] = []
+delete a (x:xs) | a == x = xs
+                | otherwise = x : delete a xs
+
 --2.6
 mysum :: [Int] -> Int
 mysum a = sum(map (^2) a)
+
+--2.7a
+aprox :: Int -> Double
+aprox n = sum [(-1)^k / fromIntegral (2*k +1) | k<-[0..n]]
