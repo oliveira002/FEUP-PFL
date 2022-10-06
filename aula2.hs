@@ -1,3 +1,5 @@
+import Data.List
+
 --2.1a
 myand :: [Bool] -> Bool
 myand [] = True
@@ -41,10 +43,10 @@ mdc a b =
     else mdc b (mod a b)
 
 --2.4a
-insert :: Ord a => a -> [a] -> [a]
-insert x [] = [x]
-insert n (x:xs) | n < x = [n] ++ [x] ++ xs
-                | otherwise = [x] ++ insert n xs
+insert2 :: Ord a => a -> [a] -> [a]
+insert2 x [] = [x]
+insert2 n (x:xs) | n < x = [n] ++ [x] ++ xs
+                | otherwise = [x] ++ insert2 n xs
 
 --2.4b
 isort :: Ord a => [a] -> [a]
@@ -96,3 +98,29 @@ divprop n = [x | x<-[1..n-1], n `mod` x == 0]
 perfeitos :: Integer -> [Integer]
 --perfeitos n = [x | x<-[1..n], (sum (divprop x) == x)]
 perfeitos n = filter (\x -> sum(divprop x) == x) [1..n]
+
+--2.11
+pitagoricos :: Integer -> [(Integer,Integer,Integer)]
+pitagoricos n = [(x,y,z) | x<-[1..n], y<-[1..n],z<-[1..n], x^2+y^2==z^2]
+
+--2.12
+primo :: Integer -> Bool
+primo a | elem 1 (divprop a) && length (divprop a) == 1 = True
+        | otherwise = False
+
+--2.13 
+mersennes :: [Int]
+mersennes = [2^x - 1| x<-[1..30], primo (2^x - 1)]
+
+--2.14
+binom :: Integer -> Integer -> Integer
+binom n k = product [1..n] `div` (product [1..k] * product [1..x])
+    where x = n - k
+
+pascal :: Integer -> [[Integer]]
+pascal n = [[binom x y | y <- [0 .. x]] | x <- [0..n]]
+
+--extra
+permut :: [Integer] -> [[Integer]]
+permut [] = [[]]
+permut xs = [x:l | x <- xs, l <- permut(xs \\ [x])]
