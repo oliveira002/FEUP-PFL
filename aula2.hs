@@ -1,4 +1,5 @@
 import Data.List
+import Data.Char 
 
 --2.1a
 myand :: [Bool] -> Bool
@@ -124,3 +125,52 @@ pascal n = [[binom x y | y <- [0 .. x]] | x <- [0..n]]
 permut :: [Integer] -> [[Integer]]
 permut [] = [[]]
 permut xs = [x:l | x <- xs, l <- permut(xs \\ [x])]
+
+--2.15
+nxtLetra :: Int -> Char -> Char
+nxtLetra k a | a == ' ' = ' '
+             | ord a + k > 122 = chr (ord 'a' + (tmp - 123))
+             | otherwise = chr (tmp)
+             where tmp = ord a + k
+
+
+
+cifrar :: Int -> String -> String
+cifrar k "" = ""
+cifrar k (x:xs) = (nxtLetra k x) : (cifrar k xs)
+--cifrar k xs = [nxtLetra k x | x<-xs]
+
+--2.16
+lconcat :: [[a]] -> [a]
+lconcat l = [x | sublist <- l, x <- sublist]
+
+lrepli :: Int -> a -> [a]
+lrepli n val = [val | _<-[1..n]]
+
+lidx :: [a] -> Int -> [a]
+lidx xs n = [x | (x,y) <- zip xs [0..n],y==n]
+
+--2.18
+mindiv :: Int -> Int
+mindiv n | null ([x | x<-[2..tmp], mod n x == 0]) = n
+         | otherwise = head [x | x<-[2..tmp], mod n x == 0]
+         where tmp = round (sqrt (fromIntegral n))
+          
+qprimes :: Int -> Bool
+qprimes n = (n > 1) && (mindiv n == n)
+
+--2.19
+nub2 :: Eq a => [a] -> [a]
+nub2 []  = []
+nub2 (x:xs) = x: nub2 [y | y<-xs ,y /=x] 
+
+--2.21
+algRev :: Int -> [Int]
+algRev n = [read [x] | x <-(show n)]
+
+algrT :: Int -> [Int] -- vem ao contrario
+algrT n = if (n < 10) then [n]
+         else [(mod n 10)] ++ algrT(div n 10)
+
+algr :: Int -> [Int]
+algr n = reverse (algrT n)
