@@ -2,6 +2,6 @@
 
 ## Course Grades
 
-| | Project 1 | Project 2 |
+| | Haskell Project | Prolog Project |
 | --- | --- | --- |
 | Grade | **17.90** | **????**| 
