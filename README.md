@@ -4,4 +4,4 @@
 
 | | Haskell Project | Prolog Project |
 | --- | --- | --- |
-| Grade | **17.90** | **????**| 
+| Grade | **17.90** | **19.20**| 
